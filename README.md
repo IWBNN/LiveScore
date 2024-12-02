@@ -1,5 +1,5 @@
 <p align="middle">
-  <img src="https://github.com/user-attachments/assets/063ff518-4d5c-4633-ad8d-bb65f8b3c834" alt="사진 헤더" width="600px"/>
+  <img src="https://github.com/user-attachments/assets/b0acdc87-8132-4c4f-86a3-6eb838913e03" alt="사진 헤더" width="600px"/>
 </p>
 
 <h1 align="middle">LiveScore</h1>
