@@ -1,0 +1,153 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>회원가입</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            height: 100vh;-->
+<!--            background-color: #f2f2f2;-->
+<!--            margin: 0;-->
+<!--            font-family: Arial, sans-serif;-->
+<!--        }-->
+<!--        .container {-->
+<!--            background-color: white;-->
+<!--            padding: 20px;-->
+<!--            border-radius: 10px;-->
+<!--            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);-->
+<!--            width: 300px;-->
+<!--        }-->
+<!--        .container h2 {-->
+<!--            margin-top: 0;-->
+<!--        }-->
+<!--        input[type="text"], input[type="password"], input[type="email"] {-->
+<!--            width: 100%;-->
+<!--            padding: 10px;-->
+<!--            margin: 10px 0;-->
+<!--            border: 1px solid #ccc;-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+<!--        .btn, .btn-small {-->
+<!--            width: 100%;-->
+<!--            padding: 10px;-->
+<!--            margin: 10px 0;-->
+<!--            background-color: #4a90e2;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            border-radius: 5px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+<!--        .btn-small {-->
+<!--            width: auto;-->
+<!--            padding: 5px 10px;-->
+<!--            margin: 10px 0;-->
+<!--            background-color: #4a90e2;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            border-radius: 5px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+<!--        .checkbox-group {-->
+<!--            text-align: left;-->
+<!--            margin: 10px 0;-->
+<!--        }-->
+<!--        .checkbox-group input {-->
+<!--            margin-right: 5px;-->
+<!--        }-->
+<!--        .message {-->
+<!--            margin-top: 10px;-->
+<!--            color: red;-->
+<!--        }-->
+<!--    </style>-->
+<!--    <script>-->
+<!--        async function checkEmail() {-->
+<!--            const email = document.getElementById("email").value;-->
+<!--            const response = await fetch(`/api/users/checkEmail?email=${email}`);-->
+<!--            const isTaken = await response.json();-->
+<!--            const message = document.getElementById("emailMessage");-->
+<!--            if (isTaken) {-->
+<!--                message.textContent = "이미 사용 중인 이메일입니다.";-->
+<!--                message.style.color = "red";-->
+<!--            } else {-->
+<!--                message.textContent = "사용 가능한 이메일입니다.";-->
+<!--                message.style.color = "green";-->
+<!--            }-->
+<!--        }-->
+
+<!--        async function sendVerificationCode() {-->
+<!--            const email = document.getElementById("email").value;-->
+<!--            const response = await fetch(`/api/users/sendVerificationCode?email=${email}`, {-->
+<!--                method: 'POST'-->
+<!--            });-->
+<!--            const message = await response.text();-->
+<!--            const messageDiv = document.getElementById("verificationMessage");-->
+<!--            messageDiv.textContent = message;-->
+<!--            if (response.ok) {-->
+<!--                messageDiv.style.color = "green";-->
+<!--            } else {-->
+<!--                messageDiv.style.color = "red";-->
+<!--            }-->
+<!--        }-->
+
+<!--        async function verifyCode() {-->
+<!--            const email = document.getElementById("email").value;-->
+<!--            const code = document.getElementById("verificationCode").value;-->
+<!--            const response = await fetch(`/api/users/verifyCode?email=${email}&code=${code}`, {-->
+<!--                method: 'POST'-->
+<!--            });-->
+<!--            const isVerified = await response.json();-->
+<!--            const messageDiv = document.getElementById("verificationCodeMessage");-->
+<!--            if (isVerified) {-->
+<!--                messageDiv.textContent = "인증 성공";-->
+<!--                messageDiv.style.color = "green";-->
+<!--            } else {-->
+<!--                messageDiv.textContent = "인증 실패";-->
+<!--                messageDiv.style.color = "red";-->
+<!--            }-->
+<!--        }-->
+
+<!--        function storeUserData() {-->
+<!--            const userData = {-->
+<!--                email: document.getElementById("email").value,-->
+<!--                password: document.getElementById("password").value,-->
+<!--                username: document.getElementById("username").value-->
+<!--            };-->
+<!--            localStorage.setItem('userData', JSON.stringify(userData));-->
+<!--            location.href = '/nickname';-->
+<!--        }-->
+<!--    </script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h2>회원가입</h2>-->
+<!--    <label for="email"></label><input type="email" id="email" placeholder="이메일">-->
+<!--    <button class="btn-small" type="button" onclick="checkEmail()">중복 확인</button>-->
+<!--    <div id="emailMessage" class="message"></div>-->
+<!--    <label for="password"></label><input type="password" id="password" placeholder="비밀번호">-->
+<!--    <label>-->
+<!--        <input type="password" placeholder="비밀번호 확인">-->
+<!--    </label>-->
+<!--    <label for="username"></label><input type="text" id="username" placeholder="이름">-->
+<!--    <button class="btn-small" type="button" onclick="sendVerificationCode()">이메일 본인인증</button>-->
+<!--    <div id="verificationMessage" class="message"></div>-->
+<!--    <label for="verificationCode"></label><input type="text" id="verificationCode" placeholder="인증 코드">-->
+<!--    <button class="btn-small" type="button" onclick="verifyCode()">인증 코드 확인</button>-->
+<!--    <div id="verificationCodeMessage" class="message"></div>-->
+<!--    <div class="checkbox-group">-->
+<!--        <input type="checkbox" id="terms1">-->
+<!--        <label for="terms1">서비스 이용 동의</label><br>-->
+<!--        <input type="checkbox" id="terms2">-->
+<!--        <label for="terms2">개인정보 처리 방침 동의</label><br>-->
+<!--        <input type="checkbox" id="terms3">-->
+<!--        <label for="terms3">마케팅 정보 수신 동의</label><br>-->
+<!--        <input type="checkbox" id="terms4">-->
+<!--        <label for="terms4">이용약관 동의</label>-->
+<!--    </div>-->
+<!--    <button class="btn" type="button" onclick="storeUserData()">다음</button>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

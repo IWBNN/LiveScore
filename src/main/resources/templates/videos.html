@@ -1,0 +1,57 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="ko">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Match Videos</title>-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/dist/css/bootstrap.min.css">-->
+<!--    <style>-->
+<!--        .video-container {-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--        video {-->
+<!--            max-width: 100%;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h1 th:text="'Videos for Match ' + ${matchId}"></h1>-->
+
+<!--    <div id="video-list">-->
+<!--        <div class="video-container" th:each="video : ${videos}">-->
+<!--            <video controls>-->
+<!--                <source th:src="@{'/api/video/stream/' + ${matchId} + '/' + ${video.filename}}" type="video/webm">-->
+<!--                Your browser does not support the video tag.-->
+<!--            </video>-->
+<!--            <p th:text="'Filename: ' + ${video.filename}"></p>-->
+<!--            <p th:text="'Date: ' + ${video.date}"></p>-->
+<!--            <button class="btn btn-danger" th:onclick="'deleteVideo(' + ${video.id} + ')'">Delete</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>-->
+<!--<script src="/webjars/bootstrap/4.6.0/dist/js/bootstrap.min.js"></script>-->
+<!--<script>-->
+<!--    function deleteVideo(videoId) {-->
+<!--        if (confirm('Are you sure you want to delete this video?')) {-->
+<!--            fetch('/api/video/' + videoId, { method: 'DELETE' })-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    if (data.success) {-->
+<!--                        alert('Video deleted successfully');-->
+<!--                        location.reload();-->
+<!--                    } else {-->
+<!--                        alert('Failed to delete video');-->
+<!--                    }-->
+<!--                })-->
+<!--                .catch(error => {-->
+<!--                    console.error('Error:', error);-->
+<!--                    alert('An error occurred while deleting the video');-->
+<!--                });-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

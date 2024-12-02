@@ -1,0 +1,147 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>로그인</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            height: 100vh;-->
+<!--            background-color: #f2f2f2;-->
+<!--            margin: 0;-->
+<!--            font-family: Arial, sans-serif;-->
+<!--        }-->
+<!--        .container {-->
+<!--            text-align: center;-->
+<!--            background-color: white;-->
+<!--            padding: 20px;-->
+<!--            border-radius: 10px;-->
+<!--            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);-->
+<!--            width: 300px;-->
+<!--        }-->
+<!--        input[type="email"], input[type="password"] {-->
+<!--            width: 100%;-->
+<!--            padding: 10px;-->
+<!--            margin: 10px 0;-->
+<!--            border: 1px solid #ccc;-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+<!--        .login-btn {-->
+<!--            width: 100%;-->
+<!--            padding: 15px;-->
+<!--            margin: 10px 0;-->
+<!--            background-color: #4a90e2;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            border-radius: 25px;-->
+<!--            font-size: 16px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+<!--        .remember-me {-->
+<!--            display: flex;-->
+<!--            justify-content: space-between;-->
+<!--            align-items: center;-->
+<!--            margin: 10px 0;-->
+<!--        }-->
+<!--        .remember-me input {-->
+<!--            margin-right: 5px;-->
+<!--        }-->
+<!--        .forgot-password {-->
+<!--            color: #4a90e2;-->
+<!--            text-decoration: none;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+<!--        .forgot-password:hover {-->
+<!--            text-decoration: underline;-->
+<!--        }-->
+<!--        .register-link {-->
+<!--            color: #4a90e2;-->
+<!--            text-decoration: none;-->
+<!--        }-->
+<!--        .register-link:hover {-->
+<!--            text-decoration: underline;-->
+<!--        }-->
+<!--        .message {-->
+<!--            color: red;-->
+<!--            margin-top: 10px;-->
+<!--        }-->
+<!--    </style>-->
+<!--    <script>-->
+<!--        async function login(event) {-->
+<!--            event.preventDefault();-->
+
+<!--            const email = document.getElementById("email").value;-->
+<!--            const password = document.getElementById("password").value;-->
+
+<!--            const response = await fetch('/api/users/login', {-->
+<!--                method: 'POST',-->
+<!--                headers: {-->
+<!--                    'Content-Type': 'application/json'-->
+<!--                },-->
+<!--                body: JSON.stringify({ email, password })-->
+<!--            });-->
+
+<!--            const message = await response.text();-->
+
+<!--            if (response.ok) {-->
+<!--                if (message === "admin_main") {-->
+<!--                    location.href = "/admin_main";-->
+<!--                } else {-->
+<!--                    location.href = "/user_main";-->
+<!--                }-->
+<!--            } else {-->
+<!--                alert(message);-->
+<!--            }-->
+<!--        }-->
+
+<!--        async function forgotPassword(event) {-->
+<!--            event.preventDefault();-->
+
+<!--            const email = document.getElementById("email").value;-->
+<!--            if (!email) {-->
+<!--                alert("Please enter your email address.");-->
+<!--                return;-->
+<!--            }-->
+
+<!--            const response = await fetch('/api/users/forgotPassword?email=' + encodeURIComponent(email), {-->
+<!--                method: 'POST'-->
+<!--            });-->
+
+<!--            const message = await response.text();-->
+<!--            alert(message);-->
+<!--        }-->
+
+<!--        function disableAutocomplete() {-->
+<!--            document.getElementById('loginForm').setAttribute('autocomplete', 'off');-->
+<!--            document.getElementById('email').setAttribute('autocomplete', 'off');-->
+<!--            document.getElementById('password').setAttribute('autocomplete', 'new-password');-->
+<!--        }-->
+
+<!--        document.addEventListener('DOMContentLoaded', disableAutocomplete);-->
+<!--    </script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <img src="favicon.ico" alt="Logo" style="width: 80%; margin-bottom: 20px;">-->
+<!--    <form id="loginForm" autocomplete="off">-->
+<!--        <label for="email"></label><input type="email" id="email" placeholder="이메일" required>-->
+<!--        <label for="password"></label><input type="password" id="password" placeholder="비밀번호" required>-->
+<!--        <div class="remember-me">-->
+<!--            <label>-->
+<!--                <input type="checkbox" id="remember-me"> 기억하기-->
+<!--            </label>-->
+<!--            <a class="forgot-password" href="#" onclick="forgotPassword(event)">비밀번호 찾기</a>-->
+<!--        </div>-->
+<!--        <button class="login-btn" type="submit">로그인하기</button>-->
+<!--    </form>-->
+<!--    <div id="loginMessage" class="message"></div>-->
+<!--    <p>계정이 없으신가요? <a class="register-link" href="/register">회원가입</a>을 눌러주세요</p>-->
+<!--</div>-->
+<!--<script>-->
+<!--    document.getElementById('loginForm').addEventListener('submit', login);-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

@@ -1,0 +1,271 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Live Streaming with TUS and Chat Room</title>-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/dist/css/bootstrap.min.css">-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--        }-->
+<!--        [v-cloak] {-->
+<!--            display: none;-->
+<!--        }-->
+<!--        .container {-->
+<!--            max-width: 800px;-->
+<!--            margin: auto;-->
+<!--        }-->
+<!--        video {-->
+<!--            width: 100%;-->
+<!--            max-width: 600px;-->
+<!--            display: block;-->
+<!--            margin: auto;-->
+<!--        }-->
+<!--        .buttons {-->
+<!--            text-align: center;-->
+<!--            margin: 20px 0;-->
+<!--        }-->
+<!--        .chat-container {-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <div>-->
+<!--        <h1>Live Streaming for Match <span id="matchIdDisplay"></span></h1>-->
+<!--        <video id="live-stream" controls autoplay muted></video>-->
+<!--        <div class="buttons">-->
+<!--            <button id="start-stream-btn" class="btn btn-primary">Start Stream</button>-->
+<!--            <button id="stop-stream-btn" class="btn btn-danger" disabled>Stop Stream</button>-->
+<!--            <button id="pause-stream-btn" class="btn btn-warning" disabled>Pause Upload</button>-->
+<!--            <button id="resume-stream-btn" class="btn btn-success" disabled>Resume Upload</button>-->
+<!--        </div>-->
+<!--        <div id="result"></div>-->
+<!--    </div>-->
+
+<!--    <div id="app" class="chat-container" v-cloak>-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-6">-->
+<!--                <h4>{{ roomName }} <span class="badge badge-info badge-pill">{{ userCount }}</span></h4>-->
+<!--            </div>-->
+<!--            <div class="col-md-6 text-right">-->
+<!--                <a class="btn btn-primary btn-sm" href="/logout">로그아웃</a>-->
+<!--                <a class="btn btn-info btn-sm" href="/chat/room">채팅방 나가기</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="input-group">-->
+<!--            <div class="input-group-prepend">-->
+<!--                <label class="input-group-text">내용</label>-->
+<!--            </div>-->
+<!--            <input type="text" class="form-control" v-model="message" v-on:keypress.enter="sendMessage('TALK')">-->
+<!--            <div class="input-group-append">-->
+<!--                <button class="btn btn-primary" type="button" @click="sendMessage('TALK')">보내기</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <ul class="list-group">-->
+<!--            <li class="list-group-item" v-for="message in messages">-->
+<!--                {{ message.sender }} - {{ message.message }}-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script src="https://cdn.jsdelivr.net/npm/tus-js-client@latest/dist/tus.min.js"></script>-->
+<!--<script src="/webjars/vue/2.6.14/dist/vue.min.js"></script>-->
+<!--<script src="/webjars/axios/0.17.1/dist/axios.min.js"></script>-->
+<!--<script src="/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>-->
+<!--<script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>-->
+<!--<script>-->
+<!--    document.addEventListener('DOMContentLoaded', function () {-->
+<!--        const startStreamBtn = document.querySelector('#start-stream-btn');-->
+<!--        const stopStreamBtn = document.querySelector('#stop-stream-btn');-->
+<!--        const pauseStreamBtn = document.querySelector('#pause-stream-btn');-->
+<!--        const resumeStreamBtn = document.querySelector('#resume-stream-btn');-->
+<!--        const liveStream = document.querySelector('#live-stream');-->
+<!--        const result = document.querySelector('#result');-->
+<!--        const matchId = window.location.pathname.split('/').pop();-->
+<!--        document.getElementById('matchIdDisplay').textContent = matchId;-->
+
+<!--        let mediaRecorder;-->
+<!--        let chunks = [];-->
+<!--        let upload = null;-->
+
+<!--        async function startStream() {-->
+<!--            try {-->
+<!--                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });-->
+<!--                liveStream.srcObject = stream;-->
+
+<!--                mediaRecorder = new MediaRecorder(stream);-->
+<!--                mediaRecorder.ondataavailable = (event) => {-->
+<!--                    if (event.data.size > 0) {-->
+<!--                        chunks.push(event.data);-->
+<!--                    }-->
+<!--                };-->
+<!--                mediaRecorder.start();-->
+
+<!--                await fetch(`/api/live/start/${matchId}`, { method: 'POST' });-->
+
+<!--                startStreamBtn.disabled = true;-->
+<!--                stopStreamBtn.disabled = false;-->
+<!--                pauseStreamBtn.disabled = true;-->
+<!--                resumeStreamBtn.disabled = true;-->
+<!--            } catch (error) {-->
+<!--                console.error('Error starting stream:', error);-->
+<!--            }-->
+<!--        }-->
+
+<!--        async function stopStream() {-->
+<!--            try {-->
+<!--                if (mediaRecorder && mediaRecorder.state !== 'inactive') {-->
+<!--                    mediaRecorder.stop();-->
+<!--                    liveStream.srcObject.getTracks().forEach(track => track.stop());-->
+<!--                }-->
+
+<!--                const response = await fetch(`/api/live/stop/${matchId}`, { method: 'POST' });-->
+<!--                if (response.ok) {-->
+<!--                    const blob = new Blob(chunks, { type: 'video/webm' });-->
+<!--                    const formData = new FormData();-->
+<!--                    formData.append('file', blob, `stream_${matchId}.webm`);-->
+<!--                    formData.append('matchId', matchId);-->
+
+<!--                    await fetch('/api/upload/tus', {-->
+<!--                        method: 'POST',-->
+<!--                        body: formData-->
+<!--                    });-->
+
+<!--                    console.log('Stream stopped and uploaded to S3');-->
+<!--                }-->
+<!--            } catch (error) {-->
+<!--                console.error('Error stopping stream:', error);-->
+<!--            }-->
+<!--        }-->
+
+<!--        startStreamBtn.addEventListener('click', startStream);-->
+<!--        stopStreamBtn.addEventListener('click', stopStream);-->
+
+<!--        // Initialize as viewer-->
+<!--        const hlsUrl = `http://localhost:8081/hls/${matchId}/playlist.m3u8`;-->
+<!--        if (Hls.isSupported()) {-->
+<!--            var config = {-->
+<!--                debug: true,-->
+<!--                enableWorker: true,-->
+<!--                lowLatencyMode: true,-->
+<!--                backBufferLength: 90-->
+<!--            };-->
+<!--            var hls = new Hls(config);-->
+<!--            hls.loadSource(hlsUrl);-->
+<!--            hls.attachMedia(liveStream);-->
+<!--            hls.on(Hls.Events.MANIFEST_PARSED, function() {-->
+<!--                liveStream.muted = true;  // 자동 재생을 위해 음소거-->
+<!--                liveStream.play().catch(function(error) {-->
+<!--                    console.log("Autoplay failed:", error);-->
+<!--                });-->
+<!--            });-->
+<!--            hls.on(Hls.Events.ERROR, function (event, data) {-->
+<!--                console.log('HLS error:', data);-->
+<!--            });-->
+<!--        } else if (liveStream.canPlayType('application/vnd.apple.mpegurl')) {-->
+<!--            liveStream.src = hlsUrl;-->
+<!--            liveStream.muted = true;  // 자동 재생을 위해 음소거-->
+<!--        }-->
+<!--    });-->
+
+<!--    var sock = new SockJS("/ws-stomp");-->
+<!--    var ws = Stomp.over(sock);-->
+<!--    var reconnect = 0;-->
+
+<!--    var vm = new Vue({-->
+<!--        el: '#app',-->
+<!--        data: {-->
+<!--            roomId: '',-->
+<!--            roomName: '',-->
+<!--            message: '',-->
+<!--            messages: [],-->
+<!--            sender: '',-->
+<!--            userCount: 0,-->
+<!--            hasJoined: false-->
+<!--        },-->
+<!--        created() {-->
+<!--            this.roomId = window.location.pathname.split('/').pop();-->
+<!--            this.roomName = '채팅방';-->
+<!--            this.fetchCurrentUser();-->
+<!--        },-->
+<!--        methods: {-->
+<!--            fetchCurrentUser: function() {-->
+<!--                axios.get('/api/users/me').then(response => {-->
+<!--                    this.sender = response.data.nickname;-->
+<!--                    localStorage.setItem('wschat.sender', this.sender);-->
+<!--                    this.findRoom(); // 사용자 정보를 가져온 후 채팅방 찾기-->
+<!--                }).catch(error => {-->
+<!--                    console.error("Could not fetch user info:", error);-->
+<!--                });-->
+<!--            },-->
+<!--            findRoom: function() {-->
+<!--                axios.get('/chat/room/' + this.roomId).then(response => {-->
+<!--                    this.room = response.data;-->
+<!--                    this.userCount = this.room.userCount;-->
+<!--                    connect(); // 채팅방 정보를 가져온 후 WebSocket 연결-->
+<!--                }).catch(error => {-->
+<!--                    // 채팅방이 없으면 새로 생성-->
+<!--                    this.createRoom();-->
+<!--                });-->
+<!--            },-->
+<!--            createRoom: function() {-->
+<!--                axios.post('/chat/room', { name: this.roomName }).then(response => {-->
+<!--                    this.roomId = response.data.roomId;-->
+<!--                    localStorage.setItem('wschat.roomId', this.roomId);-->
+<!--                    this.findRoom(); // 채팅방을 생성한 후 다시 찾기-->
+<!--                }).catch(error => {-->
+<!--                    console.error("Could not create room:", error);-->
+<!--                });-->
+<!--            },-->
+<!--            sendMessage: function(type) {-->
+<!--                if (this.message.trim() === '') return;-->
+<!--                ws.send("/pub/chat/message", {}, JSON.stringify({-->
+<!--                    type: type,-->
+<!--                    roomId: this.roomId,-->
+<!--                    sender: this.sender,-->
+<!--                    message: this.message-->
+<!--                }));-->
+<!--                this.message = '';-->
+<!--            },-->
+<!--            recvMessage: function(recv) {-->
+<!--                this.userCount = recv.userCount;-->
+<!--                this.messages.unshift({ "type": recv.type, "sender": recv.sender, "message": recv.message });-->
+<!--            }-->
+<!--        }-->
+<!--    });-->
+
+<!--    function connect() {-->
+<!--        ws.connect({}, function(frame) {-->
+<!--            ws.subscribe("/sub/chat/room/" + vm.roomId, function(message) {-->
+<!--                var recv = JSON.parse(message.body);-->
+<!--                vm.recvMessage(recv);-->
+<!--            });-->
+<!--            if (!vm.hasJoined) {-->
+<!--                ws.send("/pub/chat/message", {}, JSON.stringify({-->
+<!--                    type: 'JOIN',-->
+<!--                    roomId: vm.roomId,-->
+<!--                    sender: vm.sender-->
+<!--                }));-->
+<!--                vm.hasJoined = true;-->
+<!--            }-->
+<!--        }, function(error) {-->
+<!--            if (reconnect++ <= 5) {-->
+<!--                setTimeout(function() {-->
+<!--                    console.log("connection reconnect");-->
+<!--                    sock = new SockJS("/ws-stomp");-->
+<!--                    ws = Stomp.over(sock);-->
+<!--                    connect();-->
+<!--                }, 10 * 1000);-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
+
+<!--    connect();-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

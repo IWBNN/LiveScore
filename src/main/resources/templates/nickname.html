@@ -1,0 +1,95 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>닉네임 설정</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            height: 100vh;-->
+<!--            background-color: #f2f2f2;-->
+<!--            margin: 0;-->
+<!--            font-family: Arial, sans-serif;-->
+<!--        }-->
+<!--        .container {-->
+<!--            background-color: white;-->
+<!--            padding: 20px;-->
+<!--            border-radius: 10px;-->
+<!--            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);-->
+<!--            width: 300px;-->
+<!--        }-->
+<!--        .container h2 {-->
+<!--            margin-top: 0;-->
+<!--        }-->
+<!--        input[type="text"] {-->
+<!--            width: 100%;-->
+<!--            padding: 10px;-->
+<!--            margin: 10px 0;-->
+<!--            border: 1px solid #ccc;-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+<!--        .btn-small {-->
+<!--            width: auto;-->
+<!--            padding: 5px 10px;-->
+<!--            margin: 10px 0;-->
+<!--            background-color: #4a90e2;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            border-radius: 5px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+<!--        .message {-->
+<!--            margin-top: 10px;-->
+<!--            color: red;-->
+<!--        }-->
+<!--    </style>-->
+<!--    <script>-->
+<!--        async function checkNickname() {-->
+<!--            const nickname = document.getElementById("nickname").value;-->
+<!--            const response = await fetch(`/api/users/checkNickname?nickname=${nickname}`);-->
+<!--            const isTaken = await response.json();-->
+<!--            const message = document.getElementById("nicknameMessage");-->
+<!--            if (isTaken) {-->
+<!--                message.textContent = "이미 사용 중인 닉네임입니다.";-->
+<!--                message.style.color = "red";-->
+<!--            } else {-->
+<!--                message.textContent = "사용 가능한 닉네임입니다.";-->
+<!--                message.style.color = "green";-->
+<!--            }-->
+<!--        }-->
+
+<!--        async function registerUser() {-->
+<!--            const nickname = document.getElementById("nickname").value;-->
+<!--            const userData = JSON.parse(localStorage.getItem('userData'));-->
+<!--            userData.nickname = nickname;-->
+
+<!--            const response = await fetch(`/api/users/register`, {-->
+<!--                method: 'POST',-->
+<!--                headers: {-->
+<!--                    'Content-Type': 'application/json'-->
+<!--                },-->
+<!--                body: JSON.stringify(userData)-->
+<!--            });-->
+
+<!--            if (response.ok) {-->
+<!--                location.href = '/start';-->
+<!--            } else {-->
+<!--                document.getElementById("registrationMessage").textContent = await response.text();-->
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h2>닉네임 설정</h2>-->
+<!--    <label for="nickname"></label><input type="text" id="nickname" placeholder="닉네임 (10자 이내)">-->
+<!--    <button class="btn-small" type="button" onclick="checkNickname()">중복 확인</button>-->
+<!--    <div id="nicknameMessage" class="message"></div>-->
+<!--    <button class="btn" type="button" onclick="registerUser()">회원가입 완료</button>-->
+<!--    <div id="registrationMessage" class="message"></div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

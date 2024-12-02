@@ -1,0 +1,59 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Start Page</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      display: flex;-->
+<!--      justify-content: center;-->
+<!--      align-items: center;-->
+<!--      height: 100vh;-->
+<!--      background-color: #f2f2f2;-->
+<!--      margin: 0;-->
+<!--      font-family: Arial, sans-serif;-->
+<!--    }-->
+<!--    .container {-->
+<!--      text-align: center;-->
+<!--    }-->
+<!--    .login-btn {-->
+<!--      display: block;-->
+<!--      width: 80%;-->
+<!--      padding: 15px;-->
+<!--      margin: 10px auto;-->
+<!--      background-color: #4a90e2;-->
+<!--      color: white;-->
+<!--      border: none;-->
+<!--      border-radius: 25px;-->
+<!--      font-size: 16px;-->
+<!--      cursor: pointer;-->
+<!--    }-->
+<!--    .register-link {-->
+<!--      color: #4a90e2;-->
+<!--      text-decoration: none;-->
+<!--    }-->
+<!--  </style>-->
+<!--  <script>-->
+<!--    async function checkLoginStatus() {-->
+<!--      const response = await fetch('/api/users/me');-->
+<!--      if (response.ok) {-->
+<!--        const user = await response.json();-->
+<!--        if (user.role === 'ADMIN') {-->
+<!--          location.href = '/admin_main';-->
+<!--        } else {-->
+<!--          location.href = '/user_main';-->
+<!--        }-->
+<!--      }-->
+<!--    }-->
+
+<!--    document.addEventListener('DOMContentLoaded', checkLoginStatus);-->
+<!--  </script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--  <button class="login-btn" onclick="location.href='/login'">로그인하기</button>-->
+<!--  <p><a class="register-link" href="/register">회원가입</a>을 눌러주세요</p>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

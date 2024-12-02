@@ -1,0 +1,127 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>마이페이지</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            height: 100vh;-->
+<!--            background-color: #f2f2f2;-->
+<!--            margin: 0;-->
+<!--            font-family: Arial, sans-serif;-->
+<!--        }-->
+<!--        .container {-->
+<!--            text-align: center;-->
+<!--            background-color: white;-->
+<!--            padding: 20px;-->
+<!--            border-radius: 10px;-->
+<!--            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);-->
+<!--            width: 300px;-->
+<!--        }-->
+<!--        input[type="text"], input[type="password"], input[type="email"] {-->
+<!--            width: 100%;-->
+<!--            padding: 10px;-->
+<!--            margin: 10px 0;-->
+<!--            border: 1px solid #ccc;-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+<!--        .update-btn, .logout-btn, .delete-btn {-->
+<!--            width: 100%;-->
+<!--            padding: 15px;-->
+<!--            margin: 10px 0;-->
+<!--            border: none;-->
+<!--            border-radius: 25px;-->
+<!--            font-size: 16px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+<!--        .update-btn {-->
+<!--            background-color: #4a90e2;-->
+<!--            color: white;-->
+<!--        }-->
+<!--        .logout-btn {-->
+<!--            background-color: #f39c12;-->
+<!--            color: white;-->
+<!--        }-->
+<!--        .delete-btn {-->
+<!--            background-color: #e74c3c;-->
+<!--            color: white;-->
+<!--        }-->
+<!--    </style>-->
+<!--    <script>-->
+<!--        async function loadUserData() {-->
+<!--            const response = await fetch('/api/users/me');-->
+<!--            const user = await response.json();-->
+
+<!--            document.getElementById('username').value = user.username;-->
+<!--            document.getElementById('email').value = user.email;-->
+<!--            document.getElementById('nickname').value = user.nickname;-->
+<!--        }-->
+
+<!--        async function updateUserData(event) {-->
+<!--            event.preventDefault();-->
+
+<!--            const nickname = document.getElementById('nickname').value;-->
+<!--            const password = document.getElementById('password').value;-->
+
+<!--            const response = await fetch('/api/users/update', {-->
+<!--                method: 'POST',-->
+<!--                headers: {-->
+<!--                    'Content-Type': 'application/json'-->
+<!--                },-->
+<!--                body: JSON.stringify({ nickname, password })-->
+<!--            });-->
+
+<!--            const message = await response.text();-->
+<!--            alert(message);-->
+<!--        }-->
+
+<!--        async function logout(event) {-->
+<!--            event.preventDefault();-->
+<!--            const response = await fetch('/api/users/logout', {-->
+<!--                method: 'POST'-->
+<!--            });-->
+<!--            if (response.ok) {-->
+<!--                location.href = '/';-->
+<!--            } else {-->
+<!--                alert('로그아웃 실패');-->
+<!--            }-->
+<!--        }-->
+
+<!--        async function deleteUser(event) {-->
+<!--            event.preventDefault();-->
+<!--            const response = await fetch('/api/users/delete', {-->
+<!--                method: 'DELETE'-->
+<!--            });-->
+<!--            if (response.ok) {-->
+<!--                location.href = '/';-->
+<!--            } else {-->
+<!--                alert('회원탈퇴 실패');-->
+<!--            }-->
+<!--        }-->
+
+<!--        document.addEventListener('DOMContentLoaded', loadUserData);-->
+<!--    </script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h2>마이페이지</h2>-->
+<!--    <form id="updateForm" onsubmit="updateUserData(event)">-->
+<!--        <label for="username">이름</label>-->
+<!--        <input type="text" id="username" disabled>-->
+<!--        <label for="email">이메일</label>-->
+<!--        <input type="email" id="email" disabled>-->
+<!--        <label for="nickname">닉네임</label>-->
+<!--        <input type="text" id="nickname" required>-->
+<!--        <label for="password">새 비밀번호</label>-->
+<!--        <input type="password" id="password">-->
+<!--        <button class="update-btn" type="submit">저장</button>-->
+<!--    </form>-->
+<!--    <button class="logout-btn" onclick="logout(event)">로그아웃</button>-->
+<!--    <button class="delete-btn" onclick="deleteUser(event)">회원탈퇴</button>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

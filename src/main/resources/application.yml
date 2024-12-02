@@ -1,0 +1,113 @@
+spring:
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  debug: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        type:
+          preferred_enum_type: STRING  # enum을 문자열로 처리하도록 설정
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  devtools:
+    livereload:
+      enabled: true # static 파일을 개발할 때 서버를 재시작 하지 않고 수정된 내용 반영
+    restart:
+      enabled: false
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+  jwt:
+    secret: ${JWT_SECRET}
+  profiles:
+    active: local
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
+            required: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+    consumer:
+      group-id: frame-processing-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+    properties:
+      num.partitions: 3
+
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 30m
+
+logging:
+  level:
+    org.hibernate.SQL: info
+    org.hibernate.type: trace
+    org.springframework.orm.jpa: DEBUG
+    org.springframework.transaction: DEBUG
+    org.thymeleaf: DEBUG
+    redis.embedded: DEBUG
+
+ffmpeg:
+  path: ${FFMPEG_PATH}
+ffprobe:
+  path: ${FFPROBE_PATH}
+
+rtmp:
+  server:
+    url: rtmp://localhost/live
+    #로컬에서 사용
+
+tus:
+  data:
+    path: ${TUS_DATA_PATH}
+    expiration: 86400000  # 1 day in milliseconds
+  save:
+    path: ${TUS_SAVE_PATH}
+  output:
+    path:
+      hls: ${TUS_HLS_OUTPUT_PATH}
+
+aws:
+  s3:
+    bucket: ${AWS_S3_BUCKET}
+  credentials:
+    access-key: ${AWS_ACCESS_KEY_ID}
+    secret-key: ${AWS_SECRET_ACCESS_KEY}
+  region: ${AWS_REGION}
+
+
+
