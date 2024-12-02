@@ -25,7 +25,7 @@
 - **mainPage** : 과거-현재-미래에 진행할 대진표 종목별, 일별로 제공
 
 <p align="middle">
-  <img src="https://github.com/user-attachments/assets/f914ebb1-08d4-46a9-8552-f8b801945baf" alt="메인페이지" width="400px"/>
+  <img src="https://github.com/user-attachments/assets/e6a86a3e-ecfa-40fd-a4c8-f1ceb096dc78" alt="메인페이지" width="400px"/>
 </p>
 
 - **bracketPage** : 리그, 토너먼트 형식의 대진표 제공
