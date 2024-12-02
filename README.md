@@ -31,38 +31,38 @@
 - **bracketPage** : 리그, 토너먼트 형식의 대진표 제공
 
 <p align="middle">
-  <img src="https://github.com/user-attachments/assets/91753022-7b71-413a-9936-fd6e957a1c2b" alt="대진표페이지" width="400px"/>
+  <img src="https://github.com/user-attachments/assets/76a41ee3-99c2-405f-940e-7aa1accd1db5" alt="대진표페이지" width="400px"/>
 </p>
 
 - **myPage** : 내 정보 조회 및 닉네임, 비밀번호, 로그아웃 기능 제공
 
 <p align="middle">
-  <img src="https://github.com/user-attachments/assets/a7207648-2c4d-47f1-86c3-2a2fbf40c0f6" alt="마이페이지" width="400px"/>
+  <img src="https://github.com/user-attachments/assets/3ade32d8-81ed-4b0b-96ea-be758d112c09" alt="마이페이지" width="400px"/>
 </p>
 
 - **LiveStreamingPage** : 실시간 비디오 스트리밍 및 채팅 기능 제공 
 
 <p align="middle">
-  <img src="https://github.com/user-attachments/assets/907c8ed5-0814-4c5f-8912-e964eeff80d5" alt="라이브스트리밍페이지" width="400px"/>
+  <img src="https://github.com/user-attachments/assets/d2c312b4-d947-45af-a229-324cc32605df" alt="라이브스트리밍페이지" width="400px"/>
 </p>
 
 - **로그인/회원가입** : MFA를 활용한 이메일 인증 방식으로 회원가입, 로그인 관리
 
 <p align="middle">
-  <img src="https://github.com/user-attachments/assets/b215ff6f-2180-4b79-ab13-eaada62056b4" alt="로그인" width="400px"/>
-  <img src="https://github.com/user-attachments/assets/e830b2ff-d869-4ece-ad8f-c6215069e15b" alt="회원가입" width="400px"/>
+  <img src="https://github.com/user-attachments/assets/263562b5-e11c-4857-bec0-9b3ec4e60027" alt="로그인" width="400px"/>
+  <img src="https://github.com/user-attachments/assets/42900751-86ff-4dcc-9fd3-92cba1cb04df" alt="회원가입" width="400px"/>
 </p>
 
 - **관리자페이지** : 팀 생성, 경기 생성, 방송 송출 기능
 
 <p align="middle">
-  <img src="https://github.com/user-attachments/assets/cae45aab-402c-4592-bf69-62c8333004aa" alt="팀 생성" width="400px"/>
-  <img src="https://github.com/user-attachments/assets/1654fcd9-97c4-48e9-bdaa-e4dbd5540cc2" alt="경기 생성" width="400px"/>
+  <img src="https://github.com/user-attachments/assets/3598dc6f-fda3-44da-b51c-00949686fcad" alt="팀 생성" width="400px"/>
+  <img src="https://github.com/user-attachments/assets/acd3c301-b665-4c3d-95a2-86fc9065ec7a" alt="경기 생성" width="400px"/>
 </p>
 
 - 방송 송출 페이지
 <p align="middle">
-  <img src="https://github.com/user-attachments/assets/ff1d86c3-3e47-4013-952f-e6563f0ebefd" alt="방송 송출" width="400px"/>
+  <img src="https://github.com/user-attachments/assets/e5cc5e52-a667-40b9-9032-b6f82ec55b3d" alt="방송 송출" width="400px"/>
 </p>
   
 
@@ -73,25 +73,25 @@
 - **Frontend**
 
 <p align="middle">
-  <img src="https://github.com/user-attachments/assets/3eb7fd09-39c6-4c72-8cc1-56a36020f852" alt="frontend" width="600px"/>
+  <img src="https://github.com/user-attachments/assets/c2611829-909c-4483-a22d-f5912d55eea1" alt="frontend" width="600px"/>
 </p>
 
 - **Backend - 서버**
 
 <p align="middle">
-  <img src="https://github.com/user-attachments/assets/81174db2-63bc-4198-8d5f-f97e69762db5" alt="backend-서버" width="600px"/>
+  <img src="https://github.com/user-attachments/assets/910bb8ba-255a-4d4c-a1c3-950a7b60464d" alt="backend-서버" width="600px"/>
 </p>
 
 - **Backend - DB**
 
 <p align="middle">
-  <img src="https://github.com/user-attachments/assets/6f784e1d-2705-41f6-be5b-79871c4b2d5b" alt="backend-db" width="600px"/>
+  <img src="https://github.com/user-attachments/assets/7e8646c4-fe1a-44b2-afbb-766039ac2914" alt="backend-db" width="600px"/>
 </p>
 
 - **배포 흐름도**
 
 <p align="middle">
-  <img src="https://github.com/user-attachments/assets/a538f9ee-7732-442d-8599-212e1c43cd76" alt="전체 흐름도" width="600px"/>
+  <img src="https://github.com/user-attachments/assets/0e4aa4c4-2de8-4b8f-b89e-98430eb1e134" alt="전체 흐름도" width="600px"/>
 </p>
 
 <br/>
@@ -117,5 +117,5 @@
 ## 🙋‍♂️ Developer
 
 <p align="middle">
-  <img src="https://github.com/user-attachments/assets/87ed3aa7-0345-44aa-9253-0b8996af58e8" alt="팀원들" width="600px"/>
+  <img src="https://github.com/user-attachments/assets/7e725bf8-05b6-447c-b05c-88ffd2ebf229" alt="팀원들" width="600px"/>
 </p>
